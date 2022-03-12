@@ -331,8 +331,9 @@ def islandA_properties():
 
     while True:
         data = int(input("How many kilos of diesel do you want to unload at island A? "))
-        if data <= islandAcapacity.value_at(0):
-            islandA.replace_at(0, data)
+        total = data + islandA.value_at(0)
+        if total <= islandAcapacity.value_at(0):
+            islandA.replace_at(0, total)
             print("Amount is valid")
             break
         else:
@@ -340,8 +341,9 @@ def islandA_properties():
 
     while True:
         data = int(input("How many kilos of frozen food such as meat would you like unload to Island A? : "))
-        if data <= islandAcapacity.value_at(1):
-            islandA.replace_at(1, data)
+        total = data + islandA.value_at(1)
+        if total <= islandAcapacity.value_at(1):
+            islandA.replace_at(1, total)
             print("Amount is valid")
             break
         else:
@@ -349,8 +351,9 @@ def islandA_properties():
 
     while True:
         data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island A? : "))
-        if data <= islandAcapacity.value_at(2):
-            islandA.replace_at(2, data)
+        total = data + islandA.value_at(2)
+        if total <= islandAcapacity.value_at(2):
+            islandA.replace_at(2, total)
             print("Amount is valid")
             break
         else:
@@ -358,8 +361,9 @@ def islandA_properties():
 
     while True:
         data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island A? : "))
-        if data <= islandAcapacity.value_at(3):
-            islandA.replace_at(3, data)
+        total = data + islandA.value_at(3)
+        if total <= islandAcapacity.value_at(3):
+            islandA.replace_at(3, total)
             print("Amount is valid")
             break
         else:
@@ -368,8 +372,9 @@ def islandA_properties():
 
     while True:
         data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island A? : "))
-        if data <= islandAcapacity.value_at(4):
-            islandA.replace_at(4, data)
+        total = data + islandA.value_at(4)
+        if total <= islandAcapacity.value_at(4):
+            islandA.replace_at(4, total)
             print("Amount is valid")
             break
         else:
@@ -382,7 +387,7 @@ def islandA_properties():
             print("Amount is valid")
             break
         else:
-            print(exceed1)
+            print("Amount is invalid. Try again.")
 
     print(" ")
     print("Kilos to be unloaded at island A")
@@ -402,8 +407,9 @@ def islandB_properties():
 
     while True:
         data = int(input("How many kilos of diesel do you want to unload at island B? "))
-        if data <= islandBcapacity.value_at(0):
-            islandB.replace_at(0, data)
+        total = data + islandB.value_at(0)
+        if total <= islandBcapacity.value_at(0):
+            islandB.replace_at(0, total)
             print("Amount is valid")
             break
         else:
@@ -411,8 +417,9 @@ def islandB_properties():
 
     while True:
         data = int(input("How many kilos of frozen food such as meat would you like unload to Island B? : "))
-        if data <= islandBcapacity.value_at(1):
-            islandB.replace_at(1, data)
+        total = data + islandB.value_at(1)
+        if total <= islandBcapacity.value_at(1):
+            islandB.replace_at(1, total)
             print("Amount is valid")
             break
         else:
@@ -420,8 +427,9 @@ def islandB_properties():
 
     while True:
         data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island B? : "))
-        if data <= islandBcapacity.value_at(2):
-            islandB.replace_at(2, data)
+        total = data + islandB.value_at(2)
+        if total <= islandBcapacity.value_at(2):
+            islandB.replace_at(2, total)
             print("Amount is valid")
             break
         else:
@@ -429,8 +437,9 @@ def islandB_properties():
 
     while True:
         data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island B? : "))
-        if data <= islandBcapacity.value_at(3):
-            islandB.replace_at(3, data)
+        total = data + islandB.value_at(3)
+        if total <= islandBcapacity.value_at(3):
+            islandB.replace_at(3, total)
             print("Amount is valid")
             break
         else:
@@ -439,8 +448,9 @@ def islandB_properties():
 
     while True:
         data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island B? : "))
-        if data <= islandBcapacity.value_at(4):
-            islandB.replace_at(4, data)
+        total = data + islandB.value_at(4)
+        if total <= islandBcapacity.value_at(4):
+            islandB.replace_at(4, total)
             print("Amount is valid")
             break
         else:
@@ -473,8 +483,9 @@ def islandC_properties():
 
     while True:
         data = int(input("How many kilos of diesel do you want to unload at island C? "))
-        if data <= islandCcapacity.value_at(0):
-            islandC.replace_at(0, data)
+        total = data + islandC.value_at(0)
+        if total <= islandCcapacity.value_at(0):
+            islandC.replace_at(0, total)
             print("Amount is valid")
             break
         else:
@@ -482,8 +493,9 @@ def islandC_properties():
 
     while True:
         data = int(input("How many kilos of frozen food such as meat would you like unload to Island C? : "))
-        if data <= islandCcapacity.value_at(1):
-            islandC.replace_at(1, data)
+        total = data + islandC.value_at(1)
+        if total <= islandCcapacity.value_at(1):
+            islandC.replace_at(1, total)
             print("Amount is valid")
             break
         else:
@@ -491,8 +503,9 @@ def islandC_properties():
 
     while True:
         data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island C? : "))
-        if data <= islandCcapacity.value_at(2):
-            islandC.replace_at(2, data)
+        total = data + islandC.value_at(2)
+        if total <= islandCcapacity.value_at(2):
+            islandC.replace_at(2, total)
             print("Amount is valid")
             break
         else:
@@ -500,8 +513,9 @@ def islandC_properties():
 
     while True:
         data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island C? : "))
-        if data <= islandCcapacity.value_at(3):
-            islandC.replace_at(3, data)
+        total = data + islandC.value_at(3)
+        if total <= islandCcapacity.value_at(3):
+            islandC.replace_at(3, total)
             print("Amount is valid")
             break
         else:
@@ -510,8 +524,9 @@ def islandC_properties():
 
     while True:
         data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island C? : "))
-        if data <= islandCcapacity.value_at(4):
-            islandC.replace_at(4, data)
+        total = data + islandC.value_at(4)
+        if total <= islandCcapacity.value_at(4):
+            islandC.replace_at(4, total)
             print("Amount is valid")
             break
         else:
@@ -544,8 +559,9 @@ def islandD_properties():
 
     while True:
         data = int(input("How many kilos of diesel do you want to unload at island D? "))
-        if data <= islandDcapacity.value_at(0):
-            islandD.replace_at(0, data)
+        total = data + islandD.value_at(0)
+        if total <= islandDcapacity.value_at(0):
+            islandD.replace_at(0, total)
             print("Amount is valid")
             break
         else:
@@ -553,8 +569,9 @@ def islandD_properties():
 
     while True:
         data = int(input("How many kilos of frozen food such as meat would you like unload to Island D? : "))
-        if data <= islandDcapacity.value_at(1):
-            islandD.replace_at(1, data)
+        total = data + islandD.value_at(1)
+        if total <= islandDcapacity.value_at(1):
+            islandD.replace_at(1, total)
             print("Amount is valid")
             break
         else:
@@ -562,8 +579,9 @@ def islandD_properties():
 
     while True:
         data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island D? : "))
-        if data <= islandDcapacity.value_at(2):
-            islandD.replace_at(2, data)
+        total = data + islandD.value_at(2)
+        if total <= islandDcapacity.value_at(2):
+            islandD.replace_at(2, total)
             print("Amount is valid")
             break
         else:
@@ -571,8 +589,9 @@ def islandD_properties():
 
     while True:
         data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island D? : "))
-        if data <= islandDcapacity.value_at(3):
-            islandD.replace_at(3, data)
+        total = data + islandD.value_at(3)
+        if total <= islandDcapacity.value_at(3):
+            islandD.replace_at(3, total)
             print("Amount is valid")
             break
         else:
@@ -581,8 +600,9 @@ def islandD_properties():
 
     while True:
         data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island D? : "))
-        if data <= islandDcapacity.value_at(4):
-            islandD.replace_at(4, data)
+        total = data + islandD.value_at(4)
+        if total <= islandDcapacity.value_at(4):
+            islandD.replace_at(4, total)
             print("Amount is valid")
             break
         else:
@@ -615,8 +635,9 @@ def dhoani_properties():
 
     while True:
         data = int(input("How many kilos of diesel do you want to load at Dhoani? "))
-        if data <= dhoanicapacity.value_at(0):
-            dhoani.replace_at(0, data)
+        total = data + dhoani.value_at(0)
+        if total <= dhoanicapacity.value_at(0):
+            dhoani.replace_at(0, total)
             print("Amount is valid")
             break
         else:
@@ -624,8 +645,9 @@ def dhoani_properties():
 
     while True:
         data = int(input("How many kilos of frozen food such as meat would you like load to Dhoani? : "))
-        if data <= dhoanicapacity.value_at(1):
-            dhoani.replace_at(1, data)
+        total = data + dhoani.value_at(1)
+        if total <= dhoanicapacity.value_at(1):
+            dhoani.replace_at(1, total)
             print("Amount is valid")
             break
         else:
@@ -633,8 +655,9 @@ def dhoani_properties():
 
     while True:
         data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like load to Dhoani? : "))
-        if data <= dhoanicapacity.value_at(2):
-            dhoani.replace_at(2, data)
+        total = data + dhoani.value_at(2)
+        if total <= dhoanicapacity.value_at(2):
+            dhoani.replace_at(2, total)
             print("Amount is valid")
             break
         else:
@@ -644,7 +667,8 @@ def dhoani_properties():
         data1 = int(input("How many kilos of other food items such as grains and spices would you like load to Dhoani? : "))
         data2 = int(input("How many kilos of construction materials such as cement and chemical would you like load to Dhoani? : "))
         data3 = int(input("How many kilos of items such as steel, brick and sand would you like load to Dhoani? : "))
-        total = (data1 + data2 + data3)
+        all = (data1 + data2 + data3)
+        total = all + dhoani.value_at(3)
         if total <= dhoanicapacity.value_at(3):
             dhoani.replace_at(3, total)
             print("Amount is valid")
