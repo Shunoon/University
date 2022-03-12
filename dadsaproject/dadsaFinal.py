@@ -156,6 +156,150 @@ exceed3 = ("\nAmount exceeds storage capacity of the island C, please try again.
 exceed4 = ("\nAmount exceeds storage capacity of the island D, please try again.\n")
 exceed5 = ("\nAmount exceeds storage capacity of the dhoani, please try again.\n")
 
+def mainMenu():
+    print("\n", "***** WELCOME TO THE PROGRAM *****", "\n")
+
+    print("[1] Check the storage capacities of islands and dhoani", "\n")
+
+    print("[2] Current quantity in storage of islands and dhoani", "\n")
+
+    print("[3] Add, remove and swap items in island A")
+    print("[4] Add, remove and swap items in island B")
+    print("[5] Add, remove and swap items in island C")
+    print("[6] Add, remove and swap items in island D")
+    print("[7] Add, remove and swap items in Dhoani", "\n")
+
+    print("[8] Timings of islands", "\n")
+
+    print("[0] Exit the program.")
+    while True:
+            print("")
+            option = int(input("Enter your option "))
+            if option == 1:
+                menu1()
+                break
+            if option == 2:
+                menu2()
+                break
+            elif option == 3:
+                islandA_properties()
+                break
+            elif option == 4:
+                islandB_properties()
+                break
+            elif option == 5:
+                islandC_properties()
+                break
+            elif option == 6:
+                islandD_properties()
+                break
+            elif option == 7:
+                dhoani_properties()
+                break
+            elif option == 8:
+                timings()
+                break
+            elif option == 0:
+                print("You have exited the program !")
+                break
+            else:
+                print("Inavlid choice. Enter between 0 - 8")
+                mainMenu()
+            print("Inavlid choice. Enter between 0 - 8")
+    exit
+
+# Function which shows the user all the storage capacities
+def menu1():
+    print("")
+    print("---- STORAGE CAPACITY AT ISLAND A ----")
+    print("Diesel = ", (1500))
+    print("Frozen food = ", (40))
+    print("Low temp food = ", (50))
+    print("Other food = ", (100))
+    print("Protected material = ", (10000))
+    print("Unprotected material = ", "Unlimited", "\n")
+
+    print("---- STORAGE CAPACITY AT ISLAND B ----")
+    print("Diesel = ", (2000))
+    print("Frozen food = ", (40))
+    print("Low temp food = ", (50))
+    print("Other food = ", (90))
+    print("Protected material = ", (11000))
+    print("Unprotected material = ", "Unlimited", "\n")
+
+    print("---- STORAGE CAPACITY AT ISLAND C ----")
+    print("Diesel = ", (1000))
+    print("Frozen food = ", (40))
+    print("Low temp food = ", (50))
+    print("Other food = ", (110))
+    print("Protected material = ", (9000))
+    print("Unprotected material = ", ("Unlimited"), "\n")
+
+    print("---- STORAGE CAPACITY AT ISLAND D ----")
+    print("Diesel = ", (1000))
+    print("Frozen food = ", (40))
+    print("Low temp food = ", (50))
+    print("Other food = ", (80))
+    print("Protected material = ", (9000))
+    print("Unprotected material = ", ("Unlimited"), "\n")
+
+    print("---- STORAGE CAPACITY OF DHOANI ----")
+    print("Diesel = ", (4000))
+    print("Frozen food = ", (40))
+    print("Low temp food = ", (50))
+    print("Other food, Protected  material and Unprotected material = ", (28000), "\n")
+
+    anykey = input("Enter anything to return to Main menu")
+    mainMenu()
+
+# Function which shows the user the current quantities in islands and dhoani
+def menu2():
+    print(" ")
+    print("---- Current quantity in storage in island A ----", "\n")
+    print("Diesel = ", islandA.value_at(0))
+    print("Frozen food = ", islandA.value_at(1))
+    print("Low temp food = ", islandA.value_at(2))
+    print("Other food = ", islandA.value_at(3))
+    print("Protected material = ", islandA.value_at(4))
+    print("Unprotected material = ", islandA.value_at(5), "\n")
+
+    print(" ")
+    print("---- Current quantity in storage in island B ----", "\n")
+    print("Diesel = ", islandB.value_at(0))
+    print("Frozen food = ", islandB.value_at(1))
+    print("Low temp food = ", islandB.value_at(2))
+    print("Other food = ", islandB.value_at(3))
+    print("Protected material = ", islandB.value_at(4))
+    print("Unprotected material = ", islandB.value_at(5), "\n")
+
+    print(" ")
+    print("---- Current quantity in storage in island C ----", "\n")
+    print("Diesel = ", islandC.value_at(0))
+    print("Frozen food = ", islandC.value_at(1))
+    print("Low temp food = ", islandC.value_at(2))
+    print("Other food = ", islandC.value_at(3))
+    print("Protected material = ", islandC.value_at(4))
+    print("Unprotected material = ", islandC.value_at(5), "\n")
+
+    print(" ")
+    print("---- Current quantity in storage in island D ----", "\n")
+    print("Diesel = ", islandD.value_at(0))
+    print("Frozen food = ", islandD.value_at(1))
+    print("Low temp food = ", islandD.value_at(2))
+    print("Other food = ", islandD.value_at(3))
+    print("Protected material = ", islandD.value_at(4))
+    print("Unprotected material = ", islandD.value_at(5), "\n")
+
+    print(" ")
+    print("---- Current quantity in storage in dhoani ----", "\n")
+    print("Diesel = ", dhoani.value_at(0))
+    print("Frozen food = ", dhoani.value_at(1))
+    print("Low temp food = ", dhoani.value_at(2))
+    print("Other food, Protected material and Unprotected material = ", dhoani.value_at(3), "\n")
+
+    anykey = input("Enter anything to return to Main menu")
+    mainMenu()
+
 # __________ ISLAND A _________
     
 def islandA_properties():
@@ -524,3 +668,6 @@ def timings():
     print("The time from island C to reach island B =", int(time3), "minutes.")
     print("The time from island B to reach island A =", int(time2), "minutes.")
     print("The time from island A to reach supplier's island 1 =", int(time1), "minutes.")
+
+mainMenu()
+
