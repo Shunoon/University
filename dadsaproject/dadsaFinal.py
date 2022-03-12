@@ -63,3 +63,95 @@ class LinkedList:
                 break
             itr = itr.next
             count += 1
+
+# Declaring the quanitity as 0 of the island A storages at the beginning.
+islandA = LinkedList()
+islandA.insert_at_end(0)
+islandA.insert_at_end(0)
+islandA.insert_at_end(0)
+islandA.insert_at_end(0)
+islandA.insert_at_end(0)
+islandA.insert_at_end(0)
+
+# Declaring the quanitity as 0 of the island B storages at the beginning.
+islandB = LinkedList()
+islandB.insert_at_end(0)
+islandB.insert_at_end(0)
+islandB.insert_at_end(0)
+islandB.insert_at_end(0)
+islandB.insert_at_end(0)
+islandB.insert_at_end(0)
+
+# Declaring the quanitity as 0 of the island C storages at the beginning.
+islandC = LinkedList()
+islandC.insert_at_end(0)
+islandC.insert_at_end(0)
+islandC.insert_at_end(0)
+islandC.insert_at_end(0)
+islandC.insert_at_end(0)
+islandC.insert_at_end(0)
+
+# Declaring the quanitity as 0 of the island D storages at the beginning.
+islandD = LinkedList()
+islandD.insert_at_end(0)
+islandD.insert_at_end(0)
+islandD.insert_at_end(0)
+islandD.insert_at_end(0)
+islandD.insert_at_end(0)
+islandD.insert_at_end(0)
+
+# Declaring the quanitity as 0 of the dhoani storages at the beginning.
+dhoani = LinkedList()
+dhoani.insert_at_end(0)
+dhoani.insert_at_end(0)
+dhoani.insert_at_end(0)
+dhoani.insert_at_end(0)
+
+# Declaring the total capacity of the storages in island A
+islandAcapacity = LinkedList()
+islandAcapacity.insert_at_end(1500)
+islandAcapacity.insert_at_end(40)
+islandAcapacity.insert_at_end(50)
+islandAcapacity.insert_at_end(100)
+islandAcapacity.insert_at_end(10000)
+islandAcapacity.insert_at_end("Unlimited")
+
+# Declaring the total capacity of the storages in island B
+islandBcapacity = LinkedList()
+islandBcapacity.insert_at_end(2000)
+islandBcapacity.insert_at_end(40)
+islandBcapacity.insert_at_end(50)
+islandBcapacity.insert_at_end(90)
+islandBcapacity.insert_at_end(11000)
+islandBcapacity.insert_at_end("Unlimited")
+
+# Declaring the total capacity of the storages in island C
+islandCcapacity = LinkedList()
+islandCcapacity.insert_at_end(1000)
+islandCcapacity.insert_at_end(40)
+islandCcapacity.insert_at_end(50)
+islandCcapacity.insert_at_end(110)
+islandCcapacity.insert_at_end(9000)
+islandCcapacity.insert_at_end("Unlimited")
+
+# Declaring the total capacity of the storages in island D
+islandDcapacity = LinkedList()
+islandDcapacity.insert_at_end(1000)
+islandDcapacity.insert_at_end(40)
+islandDcapacity.insert_at_end(50)
+islandDcapacity.insert_at_end(80)
+islandDcapacity.insert_at_end(9000)
+islandDcapacity.insert_at_end("Unlimited")
+
+# Declaring the total capacity of the storages in island A
+dhoanicapacity = LinkedList()
+dhoanicapacity.insert_at_end(4000)
+dhoanicapacity.insert_at_end(40)
+dhoanicapacity.insert_at_end(50)
+dhoanicapacity.insert_at_end(28000)
+
+exceed1 = ("\nAmount exceeds storage capacity of the island A, please try again.\n")
+exceed2 = ("\nAmount exceeds storage capacity of the island B, please try again.\n")
+exceed3 = ("\nAmount exceeds storage capacity of the island C, please try again.\n")
+exceed4 = ("\nAmount exceeds storage capacity of the island D, please try again.\n")
+exceed5 = ("\nAmount exceeds storage capacity of the dhoani, please try again.\n")
