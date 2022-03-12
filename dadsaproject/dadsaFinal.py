@@ -203,9 +203,9 @@ def mainMenu():
                 print("You have exited the program !")
                 break
             else:
-                print("Inavlid choice. Enter between 0 - 8")
+                print("Inavlid choice. Enter between 0 - 9")
                 mainMenu()
-            print("Inavlid choice. Enter between 0 - 8")
+            print("Inavlid choice. Enter between 0 - 9")
     exit
 
 # Function which shows the user all the storage capacities
@@ -263,6 +263,11 @@ def menu2():
     print("Protected material = ", islandA.value_at(4))
     print("Unprotected material = ", islandA.value_at(5), "\n")
 
+    if islandA.value_at(0) == islandAcapacity.value_at(0) and islandA.value_at(1) == islandAcapacity.value_at(1) and islandA.value_at(2) == islandAcapacity.value_at(2) and islandA.value_at(3) == islandAcapacity.value_at(3) and islandA.value_at(4) == islandAcapacity.value_at(4):
+        print("---- ISLAND A CAPACITY IS FULL ----")
+    else:
+        print("---- Island A still has extra capacity ----")
+
     print(" ")
     print("---- Current quantity in storage in island B ----", "\n")
     print("Diesel = ", islandB.value_at(0))
@@ -271,6 +276,11 @@ def menu2():
     print("Other food = ", islandB.value_at(3))
     print("Protected material = ", islandB.value_at(4))
     print("Unprotected material = ", islandB.value_at(5), "\n")
+
+    if islandB.value_at(0) == islandBcapacity.value_at(0) and islandB.value_at(1) == islandBcapacity.value_at(1) and islandB.value_at(2) == islandBcapacity.value_at(2) and islandB.value_at(3) == islandBcapacity.value_at(3) and islandB.value_at(4) == islandBcapacity.value_at(4):
+        print("---- ISLAND B CAPACITY IS FULL ----")
+    else:
+        print("---- Island B still has extra capacity ----")
 
     print(" ")
     print("---- Current quantity in storage in island C ----", "\n")
@@ -281,6 +291,11 @@ def menu2():
     print("Protected material = ", islandC.value_at(4))
     print("Unprotected material = ", islandC.value_at(5), "\n")
 
+    if islandC.value_at(0) == islandCcapacity.value_at(0) and islandC.value_at(1) == islandCcapacity.value_at(1) and islandC.value_at(2) == islandCcapacity.value_at(2) and islandC.value_at(3) == islandCcapacity.value_at(3) and islandC.value_at(4) == islandCcapacity.value_at(4):
+        print("---- ISLAND C CAPACITY IS FULL ----")
+    else:
+        print("---- Island C still has extra capacity ----")
+
     print(" ")
     print("---- Current quantity in storage in island D ----", "\n")
     print("Diesel = ", islandD.value_at(0))
@@ -290,12 +305,22 @@ def menu2():
     print("Protected material = ", islandD.value_at(4))
     print("Unprotected material = ", islandD.value_at(5), "\n")
 
+    if islandD.value_at(0) == islandDcapacity.value_at(0) and islandD.value_at(1) == islandDcapacity.value_at(1) and islandD.value_at(2) == islandDcapacity.value_at(2) and islandD.value_at(3) == islandDcapacity.value_at(3) and islandD.value_at(4) == islandDcapacity.value_at(4):
+        print("---- ISLAND D CAPACITY IS FULL ----")
+    else:
+        print("---- Island D still has extra capacity ----")
+
     print(" ")
     print("---- Current quantity in storage in dhoani ----", "\n")
     print("Diesel = ", dhoani.value_at(0))
     print("Frozen food = ", dhoani.value_at(1))
     print("Low temp food = ", dhoani.value_at(2))
     print("Other food, Protected material and Unprotected material = ", dhoani.value_at(3), "\n")
+
+    if dhoani.value_at(0) == dhoanicapacity.value_at(0) and dhoani.value_at(1) == dhoanicapacity.value_at(1) and dhoani.value_at(2) == dhoanicapacity.value_at(2) and dhoani.value_at(3) == dhoanicapacity.value_at(3):
+        print("---- DHOANI CAPACITY IS FULL ----")
+    else:
+        print("---- Dhoani still has extra capacity ----")
 
     anykey = input("Enter anything to return to Main menu")
     mainMenu()
@@ -668,6 +693,9 @@ def timings():
     print("The time from island C to reach island B =", int(time3), "minutes.")
     print("The time from island B to reach island A =", int(time2), "minutes.")
     print("The time from island A to reach supplier's island 1 =", int(time1), "minutes.")
+
+    anykey = input("Enter anything to return to Main menu")
+    mainMenu()
 
 mainMenu()
 
