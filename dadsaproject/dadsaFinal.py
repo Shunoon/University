@@ -501,3 +501,26 @@ def dhoani_properties():
 
     anykey = input("Enter anything to return to Main menu")
     mainMenu()
+
+def timings():
+    time1 = (50/25) * 60
+    time2 = (80/25) * 60
+    time3 = (60/25) * 60
+    time4 = (40/25) * 60
+    time5 = (70/25) * 60
+
+    print("\n" "ROUND 1")
+    print("Island A -> Island B -> Island C -> Island D")
+    print("\n" "The time from supplier's island 1 to reach island A =", int(time1), "minutes.")
+    print("The time from island A to reach island B =", int(time2), "minutes.")
+    print("The time from island B to reach island C =", int(time3), "minutes.")
+    print("The time from island C to reach island D =", int(time4), "minutes.")
+    print("The time from island D to reach supplier's island 2 =", int(time5), "minutes.")
+
+    print("\n" "ROUND 2")
+    print("Island D -> Island C -> Island B -> Island A")
+    print("\n" "The time from supplier's island 2 to reach island D =", int(time5), "minutes.")
+    print("The time from island D to reach island C =", int(time4), "minutes.")
+    print("The time from island C to reach island B =", int(time3), "minutes.")
+    print("The time from island B to reach island A =", int(time2), "minutes.")
+    print("The time from island A to reach supplier's island 1 =", int(time1), "minutes.")
