@@ -6,10 +6,17 @@ def initList(*args):
         records.insert_at_end(item)
     return records
 
-def printCapacities(name, headers, values):
-    print(f"---- STORAGE CAPACITY AT {name} ----")
+def printCapacities(title, headers, values):
+    print(f"{title}")
     for i, x in enumerate(headers):
         print(f"{x} = {values.value_at(i)}")
+    print("")
+
+def printCheckCapacity(title, limits, values):
+    if all(limits.value_at(i) == values.value_at(i) for i, _ in enumerate(limits)):
+        print(f"{title} IS FULL")
+    else:
+        print(f"{title} HAS CAPACITY")
     print("")
 
 
@@ -31,13 +38,11 @@ dhoaniCapacity = initList(4000, 40, 50, 28000)
 islandHeaders = initList("Diesel", "Frozen Food", "Low temp food", "Other food", "Protected material", "Unprotected material")
 dhoaniHeaders = initList("Diesel", "Frozen Food", "Low temp food", "Other food, Protected material, Unprotected material")
 
-
 exceed1 = ("\nAmount exceeds storage capacity of the island A or dhoani does not have that amount, please try again.\n")
 exceed2 = ("\nAmount exceeds storage capacity of the island B or dhoani does not have that amount, please try again.\n")
 exceed3 = ("\nAmount exceeds storage capacity of the island C or dhoani does not have that amount, please try again.\n")
 exceed4 = ("\nAmount exceeds storage capacity of the island D or dhoani does not have that amount, please try again.\n")
 exceed5 = ("\nAmount exceeds storage capacity of the dhoani, please try again.\n")
-
 exceed6 = ("\nAmount exceeds storage capacity of the dhoani or island A does not have that amount, please try again.\n")
 exceed7 = ("\nAmount exceeds storage capacity of the dhoani or island B does not have that amount, please try again.\n")
 exceed8 = ("\nAmount exceeds storage capacity of the dhoani or island C does not have that amount, please try again.\n")
@@ -119,83 +124,32 @@ def mainMenu():
 # Function which shows the user all the storage capacities
 def menu1():
     print("")
-    printCapacities("ISLAND A", islandHeaders, islandAcapacity)
-    printCapacities("ISLAND B", islandHeaders, islandBcapacity)
-    printCapacities("ISLAND C", islandHeaders, islandCcapacity)
-    printCapacities("ISLAND D", islandHeaders, islandDcapacity)
-    printCapacities("DHOANI", dhoaniHeaders, dhoaniCapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND A ", islandHeaders, islandAcapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND B ", islandHeaders, islandBcapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND C ", islandHeaders, islandCcapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND D ", islandHeaders, islandDcapacity)
+    printCapacities("STORAGE CAPACITY AT DHOANI ", dhoaniHeaders, dhoaniCapacity)
     input("Enter anything to return to Main menu")
     mainMenu()
 
 # Function which shows the user the current quantities in islands and dhoani
 def menu2():
-    print(" ")
-    print("---- Current quantity in storage in island A ----", "\n")
-    print("Diesel = ", islandA.value_at(0))
-    print("Frozen food = ", islandA.value_at(1))
-    print("Low temp food = ", islandA.value_at(2))
-    print("Other food = ", islandA.value_at(3))
-    print("Protected material = ", islandA.value_at(4))
-    print("Unprotected material = ", islandA.value_at(5), "\n")
+    print("")
 
-    if islandA.value_at(0) == islandAcapacity.value_at(0) and islandA.value_at(1) == islandAcapacity.value_at(1) and islandA.value_at(2) == islandAcapacity.value_at(2) and islandA.value_at(3) == islandAcapacity.value_at(3) and islandA.value_at(4) == islandAcapacity.value_at(4):
-        print("---- ISLAND A CAPACITY IS FULL ----")
-    else:
-        print("---- Island A still has extra capacity ----")
+    printCapacities("CURRENT CAPACITY AT ISLAND A ", islandHeaders, islandA)
+    printCheckCapacity("ISLAND A", islandAcapacity, islandA)
 
-    print(" ")
-    print("---- Current quantity in storage in island B ----", "\n")
-    print("Diesel = ", islandB.value_at(0))
-    print("Frozen food = ", islandB.value_at(1))
-    print("Low temp food = ", islandB.value_at(2))
-    print("Other food = ", islandB.value_at(3))
-    print("Protected material = ", islandB.value_at(4))
-    print("Unprotected material = ", islandB.value_at(5), "\n")
+    printCapacities("CURRENT CAPACITY AT ISLAND B ", islandHeaders, islandB)
+    printCheckCapacity("ISLAND B", islandBcapacity, islandB)
 
-    if islandB.value_at(0) == islandBcapacity.value_at(0) and islandB.value_at(1) == islandBcapacity.value_at(1) and islandB.value_at(2) == islandBcapacity.value_at(2) and islandB.value_at(3) == islandBcapacity.value_at(3) and islandB.value_at(4) == islandBcapacity.value_at(4):
-        print("---- ISLAND B CAPACITY IS FULL ----")
-    else:
-        print("---- Island B still has extra capacity ----")
+    printCapacities("CURRENT CAPACITY AT ISLAND C ", islandHeaders, islandC)
+    printCheckCapacity("ISLAND C", islandCcapacity, islandC)
 
-    print(" ")
-    print("---- Current quantity in storage in island C ----", "\n")
-    print("Diesel = ", islandC.value_at(0))
-    print("Frozen food = ", islandC.value_at(1))
-    print("Low temp food = ", islandC.value_at(2))
-    print("Other food = ", islandC.value_at(3))
-    print("Protected material = ", islandC.value_at(4))
-    print("Unprotected material = ", islandC.value_at(5), "\n")
+    printCapacities("CURRENT CAPACITY AT ISLAND D ", islandHeaders, islandD)
+    printCheckCapacity("ISLAND D", islandDcapacity, islandD)
 
-    if islandC.value_at(0) == islandCcapacity.value_at(0) and islandC.value_at(1) == islandCcapacity.value_at(1) and islandC.value_at(2) == islandCcapacity.value_at(2) and islandC.value_at(3) == islandCcapacity.value_at(3) and islandC.value_at(4) == islandCcapacity.value_at(4):
-        print("---- ISLAND C CAPACITY IS FULL ----")
-    else:
-        print("---- Island C still has extra capacity ----")
-
-    print(" ")
-    print("---- Current quantity in storage in island D ----", "\n")
-    print("Diesel = ", islandD.value_at(0))
-    print("Frozen food = ", islandD.value_at(1))
-    print("Low temp food = ", islandD.value_at(2))
-    print("Other food = ", islandD.value_at(3))
-    print("Protected material = ", islandD.value_at(4))
-    print("Unprotected material = ", islandD.value_at(5), "\n")
-
-    if islandD.value_at(0) == islandDcapacity.value_at(0) and islandD.value_at(1) == islandDcapacity.value_at(1) and islandD.value_at(2) == islandDcapacity.value_at(2) and islandD.value_at(3) == islandDcapacity.value_at(3) and islandD.value_at(4) == islandDcapacity.value_at(4):
-        print("---- ISLAND D CAPACITY IS FULL ----")
-    else:
-        print("---- Island D still has extra capacity ----")
-
-    print(" ")
-    print("---- Current quantity in storage in dhoani ----", "\n")
-    print("Diesel = ", dhoani.value_at(0))
-    print("Frozen food = ", dhoani.value_at(1))
-    print("Low temp food = ", dhoani.value_at(2))
-    print("Other food, Protected material and Unprotected material = ", dhoani.value_at(3), "\n")
-
-    if dhoani.value_at(0) == dhoaniCapacity.value_at(0) and dhoani.value_at(1) == dhoaniCapacity.value_at(1) and dhoani.value_at(2) == dhoaniCapacity.value_at(2) and dhoani.value_at(3) == dhoaniCapacity.value_at(3):
-        print("---- DHOANI CAPACITY IS FULL ----")
-    else:
-        print("---- Dhoani still has extra capacity ----")
+    printCapacities("CURRENT CAPACITY AT DHOANI ", dhoaniHeaders, dhoani)
+    printCheckCapacity("DHOANI", dhoaniCapacity, dhoani)
 
     anykey = input("Enter anything to return to Main menu")
     mainMenu()
@@ -276,7 +230,7 @@ def addIslandA():
         else:
             print("Amount is invalid. Try again.")
 
-    print(" ")
+    print("")
     print("Total kilos in island A")
     print("Diesel = ", islandA.value_at(0))
     print("Frozen food = ", islandA.value_at(1))
@@ -362,7 +316,7 @@ def removeIslandA():
         else:
             print(exceed6)
 
-    print(" ")
+    print("")
     print("Total kilos in island A")
     print("Diesel = ", islandA.value_at(0))
     print("Frozen food = ", islandA.value_at(1))
@@ -450,7 +404,7 @@ def addIslandB():
         else:
             print("Amount is invalid. Try again.")
 
-    print(" ")
+    print("")
     print("Total kilos in island B")
     print("Diesel = ", islandB.value_at(0))
     print("Frozen food = ", islandB.value_at(1))
@@ -536,7 +490,7 @@ def removeIslandB():
         else:
             print(exceed6)
 
-    print(" ")
+    print("")
     print("Total kilos in island B")
     print("Diesel = ", islandB.value_at(0))
     print("Frozen food = ", islandB.value_at(1))
@@ -623,7 +577,7 @@ def addIslandC():
         else:
             print("Amount is invalid. Try again.")
 
-    print(" ")
+    print("")
     print("Total kilos in island C")
     print("Diesel = ", islandC.value_at(0))
     print("Frozen food = ", islandC.value_at(1))
@@ -709,7 +663,7 @@ def removeIslandC():
         else:
             print(exceed6)
 
-    print(" ")
+    print("")
     print("Total kilos in island C")
     print("Diesel = ", islandC.value_at(0))
     print("Frozen food = ", islandC.value_at(1))
@@ -797,7 +751,7 @@ def addIslandD():
         else:
             print("Amount is invalid. Try again.")
 
-    print(" ")
+    print("")
     print("Total kilos in island D")
     print("Diesel = ", islandD.value_at(0))
     print("Frozen food = ", islandD.value_at(1))
@@ -883,7 +837,7 @@ def removeIslandD():
         else:
             print(exceed6)
 
-    print(" ")
+    print("")
     print("Total kilos in island D")
     print("Diesel = ", islandD.value_at(0))
     print("Frozen food = ", islandD.value_at(1))
@@ -951,7 +905,7 @@ def dhoani_properties():
             print("\n","The total amount exceeds the safety value of 30,000kgs. Hence enter valid amounts again.")
             dhoani_properties()
 
-    print(" ")
+    print("")
     print("Kilos to be loaded at Dhoani")
     print("Diesel = ", dhoani.value_at(0))
     print("Frozen food = ", dhoani.value_at(1))
