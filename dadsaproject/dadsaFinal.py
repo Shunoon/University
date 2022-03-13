@@ -1,134 +1,25 @@
-class Node:
-    def __init__(self, value=None, next=None):
-        self.value = value # head is the node from which your are pointing towards next node
-        self.next = next # next is the next node where pointer is pointing
+from linkedList import LinkedList
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
-        
-    def insert_at_end(self, element):
-        if self.head is None:
-            node = Node(element, None)
-            self.head = node
-            return
-        itr = self.head
-        while itr.next:
-            itr = itr.next
-        itr.next = Node(element, None)
-        
-    def value_at(self, index):
-        itr = self.head
-        count = 0
-        value = ''  
-        while itr:
-            if count == index:
-                value = itr.value
-            count += 1
-            itr = itr.next
-        return value
-        
-    def replace_at(self, index, element):
-        if self.head is None:
-            print("linked list is empty")
-            return
-        if index > (self.length()-1):
-            print("index is out of range")
-            return
-        itr = self.head
-        count = 0
-        while itr:
-            if count == index:
-                itr.value = element
-                break
-            itr = itr.next
-            count += 1
+def initList(*args):
+    records = LinkedList()
+    for item in args:
+        records.insert_at_end(item)
+    return item
 
-# Declaring the quanitity as 0 of the island A storages at the beginning.
-islandA = LinkedList()
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
 
-# Declaring the quanitity as 0 of the island B storages at the beginning.
-islandB = LinkedList()
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
+# Declaring the initial capacity of the storages for islands and dhoani
+islandA = initList(0,0,0,0,0,0)
+islandB = initList(0,0,0,0,0,0)
+islandC = initList(0,0,0,0,0,0)
+islandD = initList(0,0,0,0,0,0)
+dhoani = initList(0,0,0,0)
 
-# Declaring the quanitity as 0 of the island C storages at the beginning.
-islandC = LinkedList()
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-
-# Declaring the quanitity as 0 of the island D storages at the beginning.
-islandD = LinkedList()
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-
-# Declaring the quanitity as 0 of the dhoani storages at the beginning.
-dhoani = LinkedList()
-dhoani.insert_at_end(0)
-dhoani.insert_at_end(0)
-dhoani.insert_at_end(0)
-dhoani.insert_at_end(0)
-
-# Declaring the total capacity of the storages in island A
-islandAcapacity = LinkedList()
-islandAcapacity.insert_at_end(1500)
-islandAcapacity.insert_at_end(40)
-islandAcapacity.insert_at_end(50)
-islandAcapacity.insert_at_end(100)
-islandAcapacity.insert_at_end(10000)
-islandAcapacity.insert_at_end("Unlimited")
-
-# Declaring the total capacity of the storages in island B
-islandBcapacity = LinkedList()
-islandBcapacity.insert_at_end(2000)
-islandBcapacity.insert_at_end(40)
-islandBcapacity.insert_at_end(50)
-islandBcapacity.insert_at_end(90)
-islandBcapacity.insert_at_end(11000)
-islandBcapacity.insert_at_end("Unlimited")
-
-# Declaring the total capacity of the storages in island C
-islandCcapacity = LinkedList()
-islandCcapacity.insert_at_end(1000)
-islandCcapacity.insert_at_end(40)
-islandCcapacity.insert_at_end(50)
-islandCcapacity.insert_at_end(110)
-islandCcapacity.insert_at_end(9000)
-islandCcapacity.insert_at_end("Unlimited")
-
-# Declaring the total capacity of the storages in island D
-islandDcapacity = LinkedList()
-islandDcapacity.insert_at_end(1000)
-islandDcapacity.insert_at_end(40)
-islandDcapacity.insert_at_end(50)
-islandDcapacity.insert_at_end(80)
-islandDcapacity.insert_at_end(9000)
-islandDcapacity.insert_at_end("Unlimited")
-
-# Declaring the total capacity of the storages in island A
-dhoanicapacity = LinkedList()
-dhoanicapacity.insert_at_end(4000)
-dhoanicapacity.insert_at_end(40)
-dhoanicapacity.insert_at_end(50)
-dhoanicapacity.insert_at_end(28000)
+# Declaring the total capacity of the storages for islands and dhoani
+islandAcapacity = initList(1500, 40, 50, 100, 10000, "Unlimited")
+islandBcapacity = initList(2000, 40, 50, 90, 11000, "Unlimited")
+islandCcapacity = initList(1000, 40, 50, 110, 9000, "Unlimited")
+islandDcapacity = initList(1000, 40, 50, 80, 9000, "Unlimited")
+dhoanicapacity = initList(4000, 40, 50, 28000)
 
 exceed1 = ("\nAmount exceeds storage capacity of the island A or dhoani does not have that amount, please try again.\n")
 exceed2 = ("\nAmount exceeds storage capacity of the island B or dhoani does not have that amount, please try again.\n")
