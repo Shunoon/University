@@ -4,7 +4,7 @@ def initList(*args):
     records = LinkedList()
     for item in args:
         records.insert_at_end(item)
-    return item
+    return records
 
 
 # Declaring the initial capacity of the storages for islands and dhoani
