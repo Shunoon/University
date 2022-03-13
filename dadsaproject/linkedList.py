@@ -43,3 +43,9 @@ class LinkedList:
                 break
             itr = itr.next
             count += 1
+    
+    def __iter__(self):
+        itr = self.head
+        while itr:
+            yield itr.value
+            itr = itr.next
