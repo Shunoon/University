@@ -4,8 +4,9 @@ class Node:
         self.next = next # next is the next node where pointer is pointing
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, name=None):
         self.head = None
+        self._name = name
         
     def insert_at_end(self, element):
         if self.head is None:
@@ -32,9 +33,9 @@ class LinkedList:
         if self.head is None:
             print("linked list is empty")
             return
-        if index > (self.length()-1):
-            print("index is out of range")
-            return
+        # if index > (self.length()-1):
+        #     print("index is out of range")
+        #     return
         itr = self.head
         count = 0
         while itr:
@@ -49,3 +50,6 @@ class LinkedList:
         while itr:
             yield itr.value
             itr = itr.next
+
+    def __str__ (self):
+        return self._name
