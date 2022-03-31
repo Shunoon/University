@@ -4,8 +4,9 @@ class Node:
         self.next = next # next is the next node where pointer is pointing
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, name=None):
         self.head = None
+        self._name = name
         
     def insert_at_end(self, element):
         if self.head is None:
@@ -32,9 +33,9 @@ class LinkedList:
         if self.head is None:
             print("linked list is empty")
             return
-        if index > (self.length()-1):
-            print("index is out of range")
-            return
+        # if index > (self.length()-1):
+        #     print("index is out of range")
+        #     return
         itr = self.head
         count = 0
         while itr:
@@ -43,1079 +44,254 @@ class LinkedList:
                 break
             itr = itr.next
             count += 1
+    
+    def __iter__(self):
+        itr = self.head
+        while itr:
+            yield itr.value
+            itr = itr.next
 
-# Declaring the quanitity as 0 of the island A storages at the beginning.
-islandA = LinkedList()
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
-islandA.insert_at_end(0)
+    def __str__ (self):
+        return self._name
+        
+def initList(*args, **kwargs):
+    records = LinkedList(kwargs.get("name", None))
+    for item in args:
+        records.insert_at_end(item)
+    return records
 
-# Declaring the quanitity as 0 of the island B storages at the beginning.
-islandB = LinkedList()
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
-islandB.insert_at_end(0)
+def printCapacities(title, headers, values):
+    print(f"{title}")
+    for i, x in enumerate(headers):
+        print(f"{x} = {values.value_at(i)}")
+    print("")
 
-# Declaring the quanitity as 0 of the island C storages at the beginning.
-islandC = LinkedList()
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
-islandC.insert_at_end(0)
+def printCheckCapacity(title, limits, values):
+    if all(limits.value_at(i) == values.value_at(i) for i, _ in enumerate(limits)):
+        print(f"{title} IS FULL" "\n")
+        return True
+    else:
+        print(f"{title} HAS CAPACITY" "\n")
+        return False
+    print("")
 
-# Declaring the quanitity as 0 of the island D storages at the beginning.
-islandD = LinkedList()
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
-islandD.insert_at_end(0)
+def checkCapacity(title, limits, values):
+    if all(limits.value_at(i) == values.value_at(i) for i, _ in enumerate(limits)):
+        return True
+    else:
+        return False
+    print("")
 
-# Declaring the quanitity as 0 of the dhoani storages at the beginning.
-dhoani = LinkedList()
-dhoani.insert_at_end(0)
-dhoani.insert_at_end(0)
-dhoani.insert_at_end(0)
-dhoani.insert_at_end(0)
 
-# Declaring the total capacity of the storages in island A
-islandAcapacity = LinkedList()
-islandAcapacity.insert_at_end(1500)
-islandAcapacity.insert_at_end(40)
-islandAcapacity.insert_at_end(50)
-islandAcapacity.insert_at_end(100)
-islandAcapacity.insert_at_end(10000)
-islandAcapacity.insert_at_end("Unlimited")
+# Declaring the initial capacity of the storages for islands and dhoani
+islandA = initList(0,0,0,0,0,0, name="islandA")
+islandB = initList(0,0,0,0,0,0, name="islandB")
+islandC = initList(0,0,0,0,0,0, name="islandC")
+islandD = initList(0,0,0,0,0,0, name="islandD")
+dhoani = initList(0,0,0,0, name="dhoani")
 
-# Declaring the total capacity of the storages in island B
-islandBcapacity = LinkedList()
-islandBcapacity.insert_at_end(2000)
-islandBcapacity.insert_at_end(40)
-islandBcapacity.insert_at_end(50)
-islandBcapacity.insert_at_end(90)
-islandBcapacity.insert_at_end(11000)
-islandBcapacity.insert_at_end("Unlimited")
+# Declaring the total capacity of the storages for islands and dhoani
+islandAcapacity = initList(1500, 40, 50, 100, 10000, float("inf"), name="islandAcapacity")
+islandBcapacity = initList(2000, 40, 50, 90, 11000, float("inf"), name="islandBcapacity")
+islandCcapacity = initList(1000, 40, 50, 110, 9000, float("inf"), name="islandCcapacity")
+islandDcapacity = initList(1000, 40, 50, 80, 9000, float("inf"), name="islandDcapacity")
+dhoaniCapacity = initList(4000, 40, 50, 28000, name="dhoaniCapacity")
 
-# Declaring the total capacity of the storages in island C
-islandCcapacity = LinkedList()
-islandCcapacity.insert_at_end(1000)
-islandCcapacity.insert_at_end(40)
-islandCcapacity.insert_at_end(50)
-islandCcapacity.insert_at_end(110)
-islandCcapacity.insert_at_end(9000)
-islandCcapacity.insert_at_end("Unlimited")
+# Declaring the headers of the storages for islands and dhoani
+islandHeaders = initList("Diesel", "Frozen Food", "Low temp food", "Other food", "Protected material", "Unprotected material")
+dhoaniHeaders = initList("Diesel", "Frozen Food", "Low temp food", "Other food, Protected material, Unprotected material")
 
-# Declaring the total capacity of the storages in island D
-islandDcapacity = LinkedList()
-islandDcapacity.insert_at_end(1000)
-islandDcapacity.insert_at_end(40)
-islandDcapacity.insert_at_end(50)
-islandDcapacity.insert_at_end(80)
-islandDcapacity.insert_at_end(9000)
-islandDcapacity.insert_at_end("Unlimited")
+# Declaring the journey routes for dhoani
+routes = initList("Supplier", islandA, islandB, islandC, islandD, name="route1")  
+routes2 = initList("Supplier", islandD, islandC, islandB, islandA, name="route2")
+# Declaring the capacities for islands and dhoani
+capacities = initList(dhoaniCapacity, islandAcapacity, islandBcapacity, islandCcapacity, islandDcapacity)
 
-# Declaring the total capacity of the storages in island A
-dhoanicapacity = LinkedList()
-dhoanicapacity.insert_at_end(4000)
-dhoanicapacity.insert_at_end(40)
-dhoanicapacity.insert_at_end(50)
-dhoanicapacity.insert_at_end(28000)
-
-exceed1 = ("\nAmount exceeds storage capacity of the island A or dhoani does not have that amount, please try again.\n")
-exceed2 = ("\nAmount exceeds storage capacity of the island B or dhoani does not have that amount, please try again.\n")
-exceed3 = ("\nAmount exceeds storage capacity of the island C or dhoani does not have that amount, please try again.\n")
-exceed4 = ("\nAmount exceeds storage capacity of the island D or dhoani does not have that amount, please try again.\n")
-exceed5 = ("\nAmount exceeds storage capacity of the dhoani, please try again.\n")
-
-exceed6 = ("\nAmount exceeds storage capacity of the dhoani or island A does not have that amount, please try again.\n")
-exceed7 = ("\nAmount exceeds storage capacity of the dhoani or island B does not have that amount, please try again.\n")
-exceed8 = ("\nAmount exceeds storage capacity of the dhoani or island C does not have that amount, please try again.\n")
-exceed9 = ("\nAmount exceeds storage capacity of the dhoani or island D does not have that amount, please try again.\n")
-
-def mainMenu():
-    print("\n", "***** WELCOME TO THE PROGRAM *****", "\n")
-
-    print("[1] Check the storage capacities of islands and dhoani", "\n")
-
-    print("[2] Current quantity in storage of islands and dhoani", "\n")
-
-    print("[3] Add items in island A")
-    print("[4] remove items in island A", "\n")
-
-    print("[5] Add items in island B")
-    print("[6] remove items in island B", "\n")
-
-    print("[7] Add items in island C")
-    print("[8] remove items in island C", "\n")
-
-    print("[9] Add items in island D")
-    print("[10] remove items in island D", "\n")
-
-    print("[11] Add items in Dhoani", "\n")
-
-    print("[12] Timings of islands", "\n")
-
-    print("[0] Exit the program.")
-    while True:
-            print("")
-            option = int(input("Enter your option "))
-            if option == 1:
-                menu1()
-                break
-            if option == 2:
-                menu2()
-                break
-            elif option == 3:
-                addIslandA()
-                break
-            elif option == 4:
-                removeIslandA()
-                break
-            elif option == 5:
-                addIslandB()
-                break
-            elif option == 6:
-                removeIslandB()
-                break
-            elif option == 7:
-                addIslandC()
-                break
-            elif option == 8:
-                removeIslandC()
-                break
-            elif option == 9:
-                addIslandD()
-                break
-            elif option == 10:
-                removeIslandD()
-                break
-            elif option == 11:
-                dhoani_properties()
-                break
-            elif option == 12:
-                timings()
-                break
-            elif option == 0:
-                print("You have exited the program !")
-                break
-            else:
-                print("Inavlid choice. Enter between 0 - 9")
-                mainMenu()
-            print("Inavlid choice. Enter between 0 - 9")
-    exit
+global reverse
+reverse = False
+global currentRoute
+currentRoute = routes
 
 # Function which shows the user all the storage capacities
-def menu1():
-    print("")
-    print("---- STORAGE CAPACITY AT ISLAND A ----")
-    print("Diesel = ", (1500))
-    print("Frozen food = ", (40))
-    print("Low temp food = ", (50))
-    print("Other food = ", (100))
-    print("Protected material = ", (10000))
-    print("Unprotected material = ", "Unlimited", "\n")
-
-    print("---- STORAGE CAPACITY AT ISLAND B ----")
-    print("Diesel = ", (2000))
-    print("Frozen food = ", (40))
-    print("Low temp food = ", (50))
-    print("Other food = ", (90))
-    print("Protected material = ", (11000))
-    print("Unprotected material = ", "Unlimited", "\n")
-
-    print("---- STORAGE CAPACITY AT ISLAND C ----")
-    print("Diesel = ", (1000))
-    print("Frozen food = ", (40))
-    print("Low temp food = ", (50))
-    print("Other food = ", (110))
-    print("Protected material = ", (9000))
-    print("Unprotected material = ", ("Unlimited"), "\n")
-
-    print("---- STORAGE CAPACITY AT ISLAND D ----")
-    print("Diesel = ", (1000))
-    print("Frozen food = ", (40))
-    print("Low temp food = ", (50))
-    print("Other food = ", (80))
-    print("Protected material = ", (9000))
-    print("Unprotected material = ", ("Unlimited"), "\n")
-
-    print("---- STORAGE CAPACITY OF DHOANI ----")
-    print("Diesel = ", (4000))
-    print("Frozen food = ", (40))
-    print("Low temp food = ", (50))
-    print("Other food, Protected  material and Unprotected material = ", (28000), "\n")
-
-    anykey = input("Enter anything to return to Main menu")
+def outputStorage():
+    printCapacities("STORAGE CAPACITY AT ISLAND A ", islandHeaders, islandAcapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND B ", islandHeaders, islandBcapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND C ", islandHeaders, islandCcapacity)
+    printCapacities("STORAGE CAPACITY AT ISLAND D ", islandHeaders, islandDcapacity)
+    printCapacities("STORAGE CAPACITY AT DHOANI ", dhoaniHeaders, dhoaniCapacity)
+    input("Enter anything to return to Main menu")
     mainMenu()
 
 # Function which shows the user the current quantities in islands and dhoani
-def menu2():
-    print(" ")
-    print("---- Current quantity in storage in island A ----", "\n")
-    print("Diesel = ", islandA.value_at(0))
-    print("Frozen food = ", islandA.value_at(1))
-    print("Low temp food = ", islandA.value_at(2))
-    print("Other food = ", islandA.value_at(3))
-    print("Protected material = ", islandA.value_at(4))
-    print("Unprotected material = ", islandA.value_at(5), "\n")
+def outputCapacity():
+    printCapacities("CURRENT CAPACITY AT ISLAND A ", islandHeaders, islandA)
+    printCheckCapacity("ISLAND A", islandAcapacity, islandA)
 
-    if islandA.value_at(0) == islandAcapacity.value_at(0) and islandA.value_at(1) == islandAcapacity.value_at(1) and islandA.value_at(2) == islandAcapacity.value_at(2) and islandA.value_at(3) == islandAcapacity.value_at(3) and islandA.value_at(4) == islandAcapacity.value_at(4):
-        print("---- ISLAND A CAPACITY IS FULL ----")
+    printCapacities("CURRENT CAPACITY AT ISLAND B ", islandHeaders, islandB)
+    printCheckCapacity("ISLAND B", islandBcapacity, islandB)
+
+    printCapacities("CURRENT CAPACITY AT ISLAND C ", islandHeaders, islandC)
+    printCheckCapacity("ISLAND C", islandCcapacity, islandC)
+
+    printCapacities("CURRENT CAPACITY AT ISLAND D ", islandHeaders, islandD)
+    printCheckCapacity("ISLAND D", islandDcapacity, islandD)
+
+    printCapacities("CURRENT CAPACITY AT DHOANI ", dhoaniHeaders, dhoani)
+    printCheckCapacity("DHOANI", dhoaniCapacity, dhoani)
+
+    input("Enter anything to return to Main menu")
+    mainMenu()
+
+def addDhoani(header, values, capacity):
+    dhoaniLimit = 0
+    for i, x in enumerate(header):
+        while True:
+            try:
+                # adding items into the dhoani
+                amount = int (input(f"Enter amount of {x} to store in dhoani: "))
+                total = amount + values.value_at(i)
+                dhoaniLimit = values.value_at(0) + values.value_at(1) + values.value_at(2) + values.value_at(3) + amount
+                # validation
+                if total <= capacity.value_at(i) and (dhoaniLimit) < 30000:
+                    values.replace_at(i, values.value_at(i)+int(amount))
+                    print("Amount valid" "\n")
+                    break
+                else:
+                    print("Amount exceeds dhoani capacity. Enter amount again.\n")
+            except:
+                print("Error" "\n")
+    print(f"Total kgs in dhoani = {dhoaniLimit}")
+    print("=== You have entered dhoani values ===")
+    return
+
+def addIsland(headers, currentRoute, capacity):
+    # print("\n" f"You have reached {currentRoute}." "\n")
+    # add value to island and reduce it from dhoani           
+    for i, x in enumerate(headers):
+        if checkCapacity("", currentRoute, capacity):
+            continue
+        dhoaniStockIndex = i if i < 3 else 3
+        while True:
+            try:
+                amount = int (input (f"How much {x} do you want to unload to {currentRoute} ? : "))
+                addTotal = amount + currentRoute.value_at(i)
+
+                # Validation
+                if addTotal <= capacity.value_at(i) and amount <= dhoani.value_at(dhoaniStockIndex):
+                    dhoani.replace_at(dhoaniStockIndex, dhoani.value_at(dhoaniStockIndex)- amount)
+                    currentRoute.replace_at(i, addTotal)
+                    print("Amount valid")
+                    break
+                else:
+                    print("Amount invalid. Please try again.")
+            except:    
+                print("Error")
+    print("\n" "Enter the values you would like to put back in dhoani" "\n")
+
+def removeIsland(headers, currentRoute):
+    for i, x in enumerate(headers):
+        dhoaniStockIndex = i if i < 3 else 3
+        while True:
+            try:
+                # add value to dhoani and reduce it from dhoani
+                remove = int (input (f"How much {x} do you want to unload to dhoani from {currentRoute} ? : "))
+                removeTotal = currentRoute.value_at(i) - remove
+
+                # Validation
+                if remove <= currentRoute.value_at(i) and remove <= dhoaniCapacity.value_at(dhoaniStockIndex):
+                   dhoani.replace_at(dhoaniStockIndex, dhoani.value_at(dhoaniStockIndex)+ remove)
+                   currentRoute.replace_at(i, removeTotal)
+                   print("Amount valid")
+                   break
+                else:
+                    print("Amount invalid. Please try again.")
+            except:    
+                print("Error")
+
+# function which calculates and shows the user the time remaining to reach the islands ahead
+# checks which island the dhoani is currently at and shows the user the next destination and time to reach there
+def timings(currentRoute):
+    # Calculates the time to reach islands
+    time1 = int(50/25) * 60
+    time2 = int(80/25) * 60
+    time3 = int(60/25) * 60
+    time4 = int(40/25) * 60
+    time5 = int(70/25) * 60
+
+    # if the routes is not reverse proceed meaning route is island A to B to C to D
+    if not reverse: 
+        if currentRoute == "Supplier":
+            print("\nYour journey is: Supplier's island -> Island A -> Island B -> Island C -> Island D -> Supplier's island")
+            print(f"\nYou are at supplier's island.\nIt will take {time1} minutes to reach island A \n")
+        elif currentRoute == islandA:
+            print(f"\nYou have reached island A.\nIt will take {time2} minutes to reach island B\n")
+        elif currentRoute == islandB:
+            print(f"\nYou have reached island B.\nIt will take {time3} minutes to reach island C\n")
+        elif currentRoute == islandC:
+            print(f"\nYou have reached island C.\nIt will take {time4} minutes to reach island D\n")
+        elif currentRoute == islandD:
+            print(f"\nYou have reached island D.\nIt will take {time5} minutes to reach island Supplier's island \n")
+    # else if the routes is reversed proceed meaning route is now island D to C to B to A
     else:
-        print("---- Island A still has extra capacity ----")
+        if currentRoute == "Supplier":
+            print("\nYour journey is: Supplier's island -> Island D -> Island C -> Island B -> Island A -> Supplier's island")
+            print(f"\nYou are at supplier's island.\n It will take {time5} minutes to reach island D \n")
+        elif currentRoute == islandA:
+            print(f"\nYou have reached island D.\nIt will take {time4} minutes to reach island C \n")
+        elif currentRoute == islandB:
+            print(f"\nYou have reached island C.\nIt will take {time3} minutes to reach island B \n")
+        elif currentRoute == islandC:
+            print(f"\nYou have reached island B.\nIt will take {time2} minutes to reach island A \n")
+        elif currentRoute == islandD:
+            print(f"\nYou have reached island A.\nIt will take {time1} minutes to reach island Supplier's island \n")
 
-    print(" ")
-    print("---- Current quantity in storage in island B ----", "\n")
-    print("Diesel = ", islandB.value_at(0))
-    print("Frozen food = ", islandB.value_at(1))
-    print("Low temp food = ", islandB.value_at(2))
-    print("Other food = ", islandB.value_at(3))
-    print("Protected material = ", islandB.value_at(4))
-    print("Unprotected material = ", islandB.value_at(5), "\n")
-
-    if islandB.value_at(0) == islandBcapacity.value_at(0) and islandB.value_at(1) == islandBcapacity.value_at(1) and islandB.value_at(2) == islandBcapacity.value_at(2) and islandB.value_at(3) == islandBcapacity.value_at(3) and islandB.value_at(4) == islandBcapacity.value_at(4):
-        print("---- ISLAND B CAPACITY IS FULL ----")
+# function which starts the journey of the dhoani
+def journey(routes):
+    for i, route in enumerate(routes):
+        timings(route)
+        if (route == "Supplier"):
+            addDhoani(dhoaniHeaders, dhoani, dhoaniCapacity)
+        else:
+            addIsland(islandHeaders, route, capacities.value_at(i))
+            removeIsland(islandHeaders, route)
+    print("\n" "**** You have finished your journey. You are now at the main menu **** ")
+    global currentRoute
+    global reverse
+    if reverse:
+        reverse = False
+        currentRoute = routes
     else:
-        print("---- Island B still has extra capacity ----")
-
-    print(" ")
-    print("---- Current quantity in storage in island C ----", "\n")
-    print("Diesel = ", islandC.value_at(0))
-    print("Frozen food = ", islandC.value_at(1))
-    print("Low temp food = ", islandC.value_at(2))
-    print("Other food = ", islandC.value_at(3))
-    print("Protected material = ", islandC.value_at(4))
-    print("Unprotected material = ", islandC.value_at(5), "\n")
-
-    if islandC.value_at(0) == islandCcapacity.value_at(0) and islandC.value_at(1) == islandCcapacity.value_at(1) and islandC.value_at(2) == islandCcapacity.value_at(2) and islandC.value_at(3) == islandCcapacity.value_at(3) and islandC.value_at(4) == islandCcapacity.value_at(4):
-        print("---- ISLAND C CAPACITY IS FULL ----")
-    else:
-        print("---- Island C still has extra capacity ----")
-
-    print(" ")
-    print("---- Current quantity in storage in island D ----", "\n")
-    print("Diesel = ", islandD.value_at(0))
-    print("Frozen food = ", islandD.value_at(1))
-    print("Low temp food = ", islandD.value_at(2))
-    print("Other food = ", islandD.value_at(3))
-    print("Protected material = ", islandD.value_at(4))
-    print("Unprotected material = ", islandD.value_at(5), "\n")
-
-    if islandD.value_at(0) == islandDcapacity.value_at(0) and islandD.value_at(1) == islandDcapacity.value_at(1) and islandD.value_at(2) == islandDcapacity.value_at(2) and islandD.value_at(3) == islandDcapacity.value_at(3) and islandD.value_at(4) == islandDcapacity.value_at(4):
-        print("---- ISLAND D CAPACITY IS FULL ----")
-    else:
-        print("---- Island D still has extra capacity ----")
-
-    print(" ")
-    print("---- Current quantity in storage in dhoani ----", "\n")
-    print("Diesel = ", dhoani.value_at(0))
-    print("Frozen food = ", dhoani.value_at(1))
-    print("Low temp food = ", dhoani.value_at(2))
-    print("Other food, Protected material and Unprotected material = ", dhoani.value_at(3), "\n")
-
-    if dhoani.value_at(0) == dhoanicapacity.value_at(0) and dhoani.value_at(1) == dhoanicapacity.value_at(1) and dhoani.value_at(2) == dhoanicapacity.value_at(2) and dhoani.value_at(3) == dhoanicapacity.value_at(3):
-        print("---- DHOANI CAPACITY IS FULL ----")
-    else:
-        print("---- Dhoani still has extra capacity ----")
-
-    anykey = input("Enter anything to return to Main menu")
+        reverse = True
+        currentRoute = routes2
     mainMenu()
 
-# __________ ISLAND A _________
-    
-def addIslandA():
+# Function for the main menu for the user interface
+def mainMenu():
+    # Shows the options to choose from to the user
+    print("\n", "***** WELCOME TO THE PROGRAM *****", "\n")
+    print("[1] Check the storage capacities of islands and dhoani", "\n")
+    print("[2] Current quantity in storage of islands and dhoani", "\n")
+    print("[3] Start your journey \n")
 
-# add diesel to island A
+    # Prompts the user to enter an option
+    # Validates the user input and prompts the user to try again if incorrect
     while True:
-        data = int(input("How many kilos of diesel do you want to unload from dhoani to island A? "))
-        total = data + islandA.value_at(0)
-        if total <= islandAcapacity.value_at(0) and data <= dhoani.value_at(0):
-            islandA.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add frozen food to island A
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like unload to Island A? : "))
-        total = data + islandA.value_at(1)
-        if total <= islandAcapacity.value_at(1) and data <= dhoani.value_at(1):
-            islandA.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add low temp foods to island A
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island A? : "))
-        total = data + islandA.value_at(2)
-        if total <= islandAcapacity.value_at(2) and data <= dhoani.value_at(2):
-            islandA.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add other food items to island A
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island A? : "))
-        total = data + islandA.value_at(3)
-        if total <= islandAcapacity.value_at(3) and data <= dhoani.value_at(3):
-            islandA.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add protected materials to island A
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island A? : "))
-        total = data + islandA.value_at(4)
-        if total <= islandAcapacity.value_at(4) and data <= dhoani.value_at(3):
-            islandA.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-            
-# add unprotected materials to island A
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like unload to Island A? : "))
-        total = data + islandA.value_at(5)
-        if type(data) == int and data <= dhoani.value_at(3):
-            islandA.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print("Amount is invalid. Try again.")
-
-    print(" ")
-    print("Total kilos in island A")
-    print("Diesel = ", islandA.value_at(0))
-    print("Frozen food = ", islandA.value_at(1))
-    print("Low temp food = ", islandA.value_at(2))
-    print("Other food = ", islandA.value_at(3))
-    print("Protected material = ", islandA.value_at(4))
-    print("Unprotected material = ", islandA.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-def removeIslandA():
-
-# remove and swap diesel in island A
-    while True:
-        data = int(input("How many kilos of diesel do you want to remove from island A and put it in dhoani? "))
-        total = islandA.value_at(0) - data
-        if data <= islandA.value_at(0) and data <= dhoanicapacity.value_at(0):
-            islandA.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap diesel in island A
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like to remove from Island A and put it in dhoani?"))
-        total = islandA.value_at(1) - data
-        if data <= islandA.value_at(1) and data <= dhoanicapacity.value_at(1):
-            islandA.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap low temp foods in island A
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like to remove from Island A and put it in dhoani?"))
-        total = islandA.value_at(2) - data
-        if data <= islandA.value_at(2) and data <= dhoanicapacity.value_at(2):
-            islandA.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap other foods in island A
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like to remove from Island A and put it in dhoani?"))
-        total = islandA.value_at(3) - data
-        if data <= islandA.value_at(3) and data <= dhoanicapacity.value_at(3):
-            islandA.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap protected materials in island A
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like to remove from Island A and put it in dhoani?"))
-        total = islandA.value_at(4) - data
-        if data <= islandA.value_at(4) and data <= dhoanicapacity.value_at(3):
-            islandA.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap unprotected materials
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like to remove from Island A and put it in dhoani?"))
-        total = islandA.value_at(5) - data
-        if data <= islandA.value_at(5) and data <= dhoanicapacity.value_at(3):
-            islandA.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-    print(" ")
-    print("Total kilos in island A")
-    print("Diesel = ", islandA.value_at(0))
-    print("Frozen food = ", islandA.value_at(1))
-    print("Low temp food = ", islandA.value_at(2))
-    print("Other food = ", islandA.value_at(3))
-    print("Protected material = ", islandA.value_at(4))
-    print("Unprotected material = ", islandA.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-# ___________ ISLAND B ____________
-
-def addIslandB():
-
-# add diesel to island B
-    while True:
-        data = int(input("How many kilos of diesel do you want to unload from dhoani to island B? "))
-        total = data + islandB.value_at(0)
-        if total <= islandBcapacity.value_at(0) and data <= dhoani.value_at(0):
-            islandB.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add frozen food to island B
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like unload to Island B? : "))
-        total = data + islandB.value_at(1)
-        if total <= islandBcapacity.value_at(1) and data <= dhoani.value_at(1):
-            islandB.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add low temp foods to island B
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island B? : "))
-        total = data + islandB.value_at(2)
-        if total <= islandBcapacity.value_at(2) and data <= dhoani.value_at(2):
-            islandB.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add other food items to island B
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island B? : "))
-        total = data + islandB.value_at(3)
-        if total <= islandBcapacity.value_at(3) and data <= dhoani.value_at(3):
-            islandB.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add protected materials to island B
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island B? : "))
-        total = data + islandB.value_at(4)
-        if total <= islandBcapacity.value_at(4) and data <= dhoani.value_at(3):
-            islandB.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-            
-# add unprotected materials to island B
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like unload to Island B? : "))
-        total = data + islandB.value_at(5)
-        if type(data) == int and data <= dhoani.value_at(3):
-            islandB.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print("Amount is invalid. Try again.")
-
-    print(" ")
-    print("Total kilos in island B")
-    print("Diesel = ", islandB.value_at(0))
-    print("Frozen food = ", islandB.value_at(1))
-    print("Low temp food = ", islandB.value_at(2))
-    print("Other food = ", islandB.value_at(3))
-    print("Protected material = ", islandB.value_at(4))
-    print("Unprotected material = ", islandB.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-def removeIslandB():
-
-# remove and swap diesel in island B
-    while True:
-        data = int(input("How many kilos of diesel do you want to remove from island B and put it in dhoani? "))
-        total = islandB.value_at(0) - data
-        if data <= islandB.value_at(0) and data <= dhoanicapacity.value_at(0):
-            islandB.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap diesel in island B
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like to remove from Island B and put it in dhoani?"))
-        total = islandB.value_at(1) - data
-        if data <= islandB.value_at(1) and data <= dhoanicapacity.value_at(1):
-            islandB.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap low temp foods in island B
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like to remove from Island B and put it in dhoani?"))
-        total = islandB.value_at(2) - data
-        if data <= islandB.value_at(2) and data <= dhoanicapacity.value_at(2):
-            islandB.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap other foods in island B
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like to remove from Island B and put it in dhoani?"))
-        total = islandB.value_at(3) - data
-        if data <= islandB.value_at(3) and data <= dhoanicapacity.value_at(3):
-            islandB.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap protected materials in island B
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like to remove from Island B and put it in dhoani?"))
-        total = islandB.value_at(4) - data
-        if data <= islandB.value_at(4) and data <= dhoanicapacity.value_at(3):
-            islandB.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap unprotected materials in island B
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like to remove from Island B and put it in dhoani?"))
-        total = islandB.value_at(5) - data
-        if data <= islandB.value_at(5) and data <= dhoanicapacity.value_at(3):
-            islandB.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-    print(" ")
-    print("Total kilos in island B")
-    print("Diesel = ", islandB.value_at(0))
-    print("Frozen food = ", islandB.value_at(1))
-    print("Low temp food = ", islandB.value_at(2))
-    print("Other food = ", islandB.value_at(3))
-    print("Protected material = ", islandB.value_at(4))
-    print("Unprotected material = ", islandB.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-# ___________ ISLAND C ____________
-
-def addIslandC():
-
-# add diesel to island C
-    while True:
-        data = int(input("How many kilos of diesel do you want to unload from dhoani to island C? "))
-        total = data + islandC.value_at(0)
-        if total <= islandCcapacity.value_at(0) and data <= dhoani.value_at(0):
-            islandC.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add frozen food to island C
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like unload to Island C? : "))
-        total = data + islandC.value_at(1)
-        if total <= islandCcapacity.value_at(1) and data <= dhoani.value_at(1):
-            islandC.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add low temp foods to island C
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island C? : "))
-        total = data + islandC.value_at(2)
-        if total <= islandCcapacity.value_at(2) and data <= dhoani.value_at(2):
-            islandC.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add other food items to island C
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island C? : "))
-        total = data + islandC.value_at(3)
-        if total <= islandCcapacity.value_at(3) and data <= dhoani.value_at(3):
-            islandC.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add protected materials to island C
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island C? : "))
-        total = data + islandC.value_at(4)
-        if total <= islandCcapacity.value_at(4) and data <= dhoani.value_at(3):
-            islandC.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-            
-# add unprotected materials to island C
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like unload to Island C? : "))
-        total = data + islandC.value_at(5)
-        if type(data) == int and data <= dhoani.value_at(3):
-            islandC.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print("Amount is invalid. Try again.")
-
-    print(" ")
-    print("Total kilos in island C")
-    print("Diesel = ", islandC.value_at(0))
-    print("Frozen food = ", islandC.value_at(1))
-    print("Low temp food = ", islandC.value_at(2))
-    print("Other food = ", islandC.value_at(3))
-    print("Protected material = ", islandC.value_at(4))
-    print("Unprotected material = ", islandC.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-def removeIslandC():
-
-# remove and swap diesel in island C
-    while True:
-        data = int(input("How many kilos of diesel do you want to remove from island C and put it in dhoani? "))
-        total = islandC.value_at(0) - data
-        if data <= islandC.value_at(0) and data <= dhoanicapacity.value_at(0):
-            islandC.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap diesel in island C
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like to remove from Island C and put it in dhoani?"))
-        total = islandC.value_at(1) - data
-        if data <= islandC.value_at(1) and data <= dhoanicapacity.value_at(1):
-            islandC.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap low temp foods in island C
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like to remove from Island C and put it in dhoani?"))
-        total = islandC.value_at(2) - data
-        if data <= islandC.value_at(2) and data <= dhoanicapacity.value_at(2):
-            islandC.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap other foods in island C
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like to remove from Island C and put it in dhoani?"))
-        total = islandC.value_at(3) - data
-        if data <= islandC.value_at(3) and data <= dhoanicapacity.value_at(3):
-            islandC.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap protected materials in island C
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like to remove from Island C and put it in dhoani?"))
-        total = islandC.value_at(4) - data
-        if data <= islandC.value_at(4) and data <= dhoanicapacity.value_at(3):
-            islandC.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap unprotected materials in island C
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like to remove from Island C and put it in dhoani?"))
-        total = islandC.value_at(5) - data
-        if data <= islandC.value_at(5) and data <= dhoanicapacity.value_at(3):
-            islandC.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-    print(" ")
-    print("Total kilos in island C")
-    print("Diesel = ", islandC.value_at(0))
-    print("Frozen food = ", islandC.value_at(1))
-    print("Low temp food = ", islandC.value_at(2))
-    print("Other food = ", islandC.value_at(3))
-    print("Protected material = ", islandC.value_at(4))
-    print("Unprotected material = ", islandC.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-# ___________ ISLAND D ____________
-
-def addIslandD():
-
-# add diesel to island D
-    while True:
-        data = int(input("How many kilos of diesel do you want to unload from dhoani to island D? "))
-        total = data + islandD.value_at(0)
-        if total <= islandDcapacity.value_at(0) and data <= dhoani.value_at(0):
-            islandD.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add frozen food to island D
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like unload to Island D? : "))
-        total = data + islandD.value_at(1)
-        if total <= islandDcapacity.value_at(1) and data <= dhoani.value_at(1):
-            islandD.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add low temp foods to island D
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like unload to Island D? : "))
-        total = data + islandD.value_at(2)
-        if total <= islandDcapacity.value_at(2) and data <= dhoani.value_at(2):
-            islandD.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add other food items to island D
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like unload to Island D? : "))
-        total = data + islandD.value_at(3)
-        if total <= islandDcapacity.value_at(3) and data <= dhoani.value_at(3):
-            islandD.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-
-# add protected materials to island D
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like unload to Island D? : "))
-        total = data + islandD.value_at(4)
-        if total <= islandDcapacity.value_at(4) and data <= dhoani.value_at(3):
-            islandD.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed1)
-            
-# add unprotected materials to island D
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like unload to Island D? : "))
-        total = data + islandD.value_at(5)
-        if type(data) == int and data <= dhoani.value_at(3):
-            islandD.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) - data)
-            print("Amount is valid")
-            break
-        else:
-            print("Amount is invalid. Try again.")
-
-    print(" ")
-    print("Total kilos in island D")
-    print("Diesel = ", islandD.value_at(0))
-    print("Frozen food = ", islandD.value_at(1))
-    print("Low temp food = ", islandD.value_at(2))
-    print("Other food = ", islandD.value_at(3))
-    print("Protected material = ", islandD.value_at(4))
-    print("Unprotected material = ", islandD.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-def removeIslandD():
-
-# remove and swap diesel in island D
-    while True:
-        data = int(input("How many kilos of diesel do you want to remove from island D and put it in dhoani? "))
-        total = islandD.value_at(0) - data
-        if data <= islandD.value_at(0) and data <= dhoanicapacity.value_at(0):
-            islandD.replace_at(0, total)
-            dhoani.replace_at(0, dhoani.value_at(0) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap diesel in island D
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like to remove from Island D and put it in dhoani?"))
-        total = islandD.value_at(1) - data
-        if data <= islandD.value_at(1) and data <= dhoanicapacity.value_at(1):
-            islandD.replace_at(1, total)
-            dhoani.replace_at(1, dhoani.value_at(1) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap low temp foods in island D
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like to remove from Island D and put it in dhoani?"))
-        total = islandD.value_at(2) - data
-        if data <= islandD.value_at(2) and data <= dhoanicapacity.value_at(2):
-            islandD.replace_at(2, total)
-            dhoani.replace_at(2, dhoani.value_at(2) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap other foods in island D
-    while True:
-        data = int(input("How many kilos of other food items such as grains and spices would you like to remove from Island D and put it in dhoani?"))
-        total = islandD.value_at(3) - data
-        if data <= islandD.value_at(3) and data <= dhoanicapacity.value_at(3):
-            islandD.replace_at(3, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap protected materials in island D
-    while True:
-        data = int(input("How many kilos of construction materials such as cement and chemical would you like to remove from Island D and put it in dhoani?"))
-        total = islandD.value_at(4) - data
-        if data <= islandD.value_at(4) and data <= dhoanicapacity.value_at(3):
-            islandD.replace_at(4, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-# remove and swap unprotected materials in island D
-    while True:
-        data = int(input("How many kilos of items such as steel, brick and sand would you like to remove from Island D and put it in dhoani?"))
-        total = islandD.value_at(5) - data
-        if data <= islandD.value_at(5) and data <= dhoanicapacity.value_at(3):
-            islandD.replace_at(5, total)
-            dhoani.replace_at(3, dhoani.value_at(3) + data) 
-            print("Amount is valid")
-            break
-        else:
-            print(exceed6)
-
-    print(" ")
-    print("Total kilos in island D")
-    print("Diesel = ", islandD.value_at(0))
-    print("Frozen food = ", islandD.value_at(1))
-    print("Low temp food = ", islandD.value_at(2))
-    print("Other food = ", islandD.value_at(3))
-    print("Protected material = ", islandD.value_at(4))
-    print("Unprotected material = ", islandD.value_at(5))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-# ___________ DHOANI ____________
-
-def dhoani_properties():
-
-    while True:
-        data = int(input("How many kilos of diesel do you want to load to Dhoani? "))
-        total = data + dhoani.value_at(0)
-        if total <= dhoanicapacity.value_at(0):
-            dhoani.replace_at(0, total)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed5)
-
-    while True:
-        data = int(input("How many kilos of frozen food such as meat would you like to load to Dhoani? : "))
-        total = data + dhoani.value_at(1)
-        if total <= dhoanicapacity.value_at(1):
-            dhoani.replace_at(1, total)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed5)
-
-    while True:
-        data = int(input("How many kilos of food items requiring low temperature such as fruits and vegetables would you like load to Dhoani? : "))
-        total = data + dhoani.value_at(2)
-        if total <= dhoanicapacity.value_at(2):
-            dhoani.replace_at(2, total)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed5)
-
-    while True:
-        data1 = int(input("How many kilos of other food items such as grains and spices would you like to load to Dhoani? : "))
-        data2 = int(input("How many kilos of construction materials such as cement and chemical would you like to load to Dhoani? : "))
-        data3 = int(input("How many kilos of items such as steel, brick and sand would you like to load to Dhoani? : "))
-        all = (data1 + data2 + data3)
-        total = all + dhoani.value_at(3)
-        if total <= dhoanicapacity.value_at(3):
-            dhoani.replace_at(3, total)
-            print("Amount is valid")
-            break
-        else:
-            print(exceed5)
-
-    while True:
-        total = (dhoani.value_at(0)+dhoani.value_at(1)+dhoani.value_at(2)+dhoani.value_at(3))
-        if total <= 30000:
-            print("\n","The total amount is less than or equal to 30,000kgs.")
-            break
-        else:
-            print("\n","The total amount exceeds the safety value of 30,000kgs. Hence enter valid amounts again.")
-            dhoani_properties()
-
-    print(" ")
-    print("Kilos to be loaded at Dhoani")
-    print("Diesel = ", dhoani.value_at(0))
-    print("Frozen food = ", dhoani.value_at(1))
-    print("Low temp food = ", dhoani.value_at(2))
-    print("Other food, Protected material and Unprotected material = ", dhoani.value_at(3))
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
-def timings():
-    time1 = (50/25) * 60
-    time2 = (80/25) * 60
-    time3 = (60/25) * 60
-    time4 = (40/25) * 60
-    time5 = (70/25) * 60
-
-    print("\n" "ROUND 1")
-    print("Island A -> Island B -> Island C -> Island D")
-    print("\n" "The time from supplier's island 1 to reach island A =", int(time1), "minutes.")
-    print("The time from island A to reach island B =", int(time2), "minutes.")
-    print("The time from island B to reach island C =", int(time3), "minutes.")
-    print("The time from island C to reach island D =", int(time4), "minutes.")
-    print("The time from island D to reach supplier's island 2 =", int(time5), "minutes.")
-
-    print("\n" "ROUND 2")
-    print("Island D -> Island C -> Island B -> Island A")
-    print("\n" "The time from supplier's island 2 to reach island D =", int(time5), "minutes.")
-    print("The time from island D to reach island C =", int(time4), "minutes.")
-    print("The time from island C to reach island B =", int(time3), "minutes.")
-    print("The time from island B to reach island A =", int(time2), "minutes.")
-    print("The time from island A to reach supplier's island 1 =", int(time1), "minutes.")
-
-    anykey = input("Enter anything to return to Main menu")
-    mainMenu()
-
+        try:
+            option = int(input("Enter your option "))
+            if option == 1:
+                outputStorage()
+                break
+            if option == 2:
+                outputCapacity()
+                break
+            if option == 3:
+                journey(currentRoute)
+                break
+        except:
+            print("Wrong option. Please try again !")
+
+# executing the mainMenu function
 mainMenu()
+
+
 
