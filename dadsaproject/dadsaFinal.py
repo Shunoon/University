@@ -104,15 +104,17 @@ dhoaniHeaders = initList("Diesel", "Frozen Food", "Low temp food", "Other food, 
 # Declaring the journey routes for dhoani
 routes = initList("Supplier", islandA, islandB, islandC, islandD, name="route1")  
 routes2 = initList("Supplier", islandD, islandC, islandB, islandA, name="route2")
+
 # Declaring the capacities for islands and dhoani
 capacities = initList(dhoaniCapacity, islandAcapacity, islandBcapacity, islandCcapacity, islandDcapacity)
 
+# Initializing reverse and current route
 global reverse
 reverse = False
 global currentRoute
 currentRoute = routes
 
-# Function which shows the user all the storage capacities
+# Function which shows the user all the storage capacities by passing through island and dhoani headers and capacities
 def outputStorage():
     printCapacities("STORAGE CAPACITY AT ISLAND A ", islandHeaders, islandAcapacity)
     printCapacities("STORAGE CAPACITY AT ISLAND B ", islandHeaders, islandBcapacity)
@@ -123,6 +125,7 @@ def outputStorage():
     mainMenu()
 
 # Function which shows the user the current quantities in islands and dhoani
+# ALso shows whether the capacity is full or not
 def outputCapacity():
     printCapacities("CURRENT CAPACITY AT ISLAND A ", islandHeaders, islandA)
     printCheckCapacity("ISLAND A", islandAcapacity, islandA)
@@ -142,16 +145,23 @@ def outputCapacity():
     input("Enter anything to return to Main menu")
     mainMenu()
 
+# Function which is used to add the items into dhoani
+# Checks which product group the header is in
 def addDhoani(header, values, capacity):
     dhoaniLimit = 0
     for i, x in enumerate(header):
+
+        # Prompts the user to enter amount to store in dhoani for each product group
+        # Validates the user input 
+        # whether the total amount of the product group is less than or equal to the capacity of the product group
+        # whether the total value of kgs entered is less than 30,000kgs which is the limit
+        # Prompts the user to amount again if it exceeds capacity
         while True:
             try:
-                # adding items into the dhoani
                 amount = int (input(f"Enter amount of {x} to store in dhoani: "))
                 total = amount + values.value_at(i)
                 dhoaniLimit = values.value_at(0) + values.value_at(1) + values.value_at(2) + values.value_at(3) + amount
-                # validation
+
                 if total <= capacity.value_at(i) and (dhoaniLimit) < 30000:
                     values.replace_at(i, values.value_at(i)+int(amount))
                     print("Amount valid" "\n")
@@ -160,23 +170,33 @@ def addDhoani(header, values, capacity):
                     print("Amount exceeds dhoani capacity. Enter amount again.\n")
             except:
                 print("Error" "\n")
+
+    # shows the user the total kgs in dhoani and lets them know dhoani values have been entered
     print(f"Total kgs in dhoani = {dhoaniLimit}")
     print("=== You have entered dhoani values ===")
     return
 
-def addIsland(headers, currentRoute, capacity):
-    # print("\n" f"You have reached {currentRoute}." "\n")
-    # add value to island and reduce it from dhoani           
+# function which is used to add items to islands from dhoani
+# Checks which product group the header is in and which island the dhoani is in
+# Checks whether the the island is full or not 
+def addIsland(headers, currentRoute, capacity):     
     for i, x in enumerate(headers):
         if checkCapacity("", currentRoute, capacity):
             continue
+
+        # intializing if index is greater than 3 index is always 3 so that the last 3 product group constraint is 28000
         dhoaniStockIndex = i if i < 3 else 3
+
+        # Prompts the user to enter amount of kgs of the product group to unload to the current island
+        # Validates the user input 
+        # whether the total amount of the product group is less than or equal to the capacity of the product group
+        # whether the user input kilos is available inside the dhoani or not
+        # Prompts the user to amount again if it exceeds capacity
         while True:
             try:
                 amount = int (input (f"How much {x} do you want to unload to {currentRoute} ? : "))
                 addTotal = amount + currentRoute.value_at(i)
 
-                # Validation
                 if addTotal <= capacity.value_at(i) and amount <= dhoani.value_at(dhoaniStockIndex):
                     dhoani.replace_at(dhoaniStockIndex, dhoani.value_at(dhoaniStockIndex)- amount)
                     currentRoute.replace_at(i, addTotal)
@@ -186,19 +206,33 @@ def addIsland(headers, currentRoute, capacity):
                     print("Amount invalid. Please try again.")
             except:    
                 print("Error")
+
+    # Asks the user to enter amounts to take from islands to back to dhoani
     print("\n" "Enter the values you would like to put back in dhoani" "\n")
 
-def removeIsland(headers, currentRoute):
+# function which is used to remove items from islands and put them in dhoani
+# Checks which product group the header is in and which island the dhoani is in
+# Checks whether the the island is full or not 
+
+def removeIsland(headers, currentRoute, values): 
     for i, x in enumerate(headers):
+
+        # intializing if index is greater than 3 index is always 3 so that the last 3 product group constraint is 28000
         dhoaniStockIndex = i if i < 3 else 3
+
+        # Prompts the user to enter amount of kgs of the product group to unload to the dhoani from current island
+        # Validates the user input 
+        # whether the amount entered of the product group is available in the current island
+        # whether the dhoani has capacity to store the amount in product group capacity
+        # whether the dhoani kilos exceed 30000 kgs or not
+        # Prompts the user to amount again if it exceeds capacity
         while True:
             try:
-                # add value to dhoani and reduce it from dhoani
                 remove = int (input (f"How much {x} do you want to unload to dhoani from {currentRoute} ? : "))
                 removeTotal = currentRoute.value_at(i) - remove
+                dhoaniLimit = values.value_at(0) + values.value_at(1) + values.value_at(2) + values.value_at(3) + remove
 
-                # Validation
-                if remove <= currentRoute.value_at(i) and remove <= dhoaniCapacity.value_at(dhoaniStockIndex):
+                if remove <= currentRoute.value_at(i) and remove <= dhoaniCapacity.value_at(dhoaniStockIndex)and (dhoaniLimit) < 30000:
                    dhoani.replace_at(dhoaniStockIndex, dhoani.value_at(dhoaniStockIndex)+ remove)
                    currentRoute.replace_at(i, removeTotal)
                    print("Amount valid")
@@ -211,6 +245,7 @@ def removeIsland(headers, currentRoute):
 # function which calculates and shows the user the time remaining to reach the islands ahead
 # checks which island the dhoani is currently at and shows the user the next destination and time to reach there
 def timings(currentRoute):
+
     # Calculates the time to reach islands
     time1 = int(50/25) * 60
     time2 = int(80/25) * 60
@@ -218,7 +253,7 @@ def timings(currentRoute):
     time4 = int(40/25) * 60
     time5 = int(70/25) * 60
 
-    # if the routes is not reverse proceed meaning route is island A to B to C to D
+    # if the routes is not reverse meaning route is island A to B to C to D proceed
     if not reverse: 
         if currentRoute == "Supplier":
             print("\nYour journey is: Supplier's island -> Island A -> Island B -> Island C -> Island D -> Supplier's island")
@@ -231,7 +266,7 @@ def timings(currentRoute):
             print(f"\nYou have reached island C.\nIt will take {time4} minutes to reach island D\n")
         elif currentRoute == islandD:
             print(f"\nYou have reached island D.\nIt will take {time5} minutes to reach island Supplier's island \n")
-    # else if the routes is reversed proceed meaning route is now island D to C to B to A
+    # else if the routes is reversed meaning route is now island D to C to B to A proceed
     else:
         if currentRoute == "Supplier":
             print("\nYour journey is: Supplier's island -> Island D -> Island C -> Island B -> Island A -> Supplier's island")
@@ -253,7 +288,7 @@ def journey(routes):
             addDhoani(dhoaniHeaders, dhoani, dhoaniCapacity)
         else:
             addIsland(islandHeaders, route, capacities.value_at(i))
-            removeIsland(islandHeaders, route)
+            removeIsland(islandHeaders, route, dhoani)
     print("\n" "**** You have finished your journey. You are now at the main menu **** ")
     global currentRoute
     global reverse
